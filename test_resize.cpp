@@ -1,8 +1,10 @@
 #include <limits>
-#include "func.h"
 #include "gtest/gtest.h"
+#include "opencv2/opencv.hpp"
 
-TEST(resize_test, input_zero)
+TEST(resize_test, read_pkx_image)
 {
-EXPECT_EQ(1, fac(0));
+    cv::Mat image = cv::imread("pkx.jpg");
+    EXPECT_EQ(1280, image.cols);
+    EXPECT_EQ(853, image.rows);
 }

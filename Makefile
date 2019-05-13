@@ -3,8 +3,8 @@ CPP = aarch64-himix100-linux-g++
 LINK = aarch64-himix100-linux-g++
 CFLAGS = -g -Wall -Werror -Wextra -std=gnu99
 CPPFLAGS = -g -Wall -Werror -Wextra
-LIBS = -L./gtest-pub -lgtest -lgtest_main
-INCS = -I./gtest-pub/include
+LIBS = -L./gtest-pub -lgtest -lgtest_main -L./opencv/lib -lopencv_core -lopencv_highgui -lopencv_imgproc
+INCS = -I./gtest-pub/include -I./opencv/include
 
 C__SOURCES = $(wildcard *.c)
 CPPSOURCES = $(wildcard *.cpp)
@@ -23,6 +23,7 @@ all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
 	$(LINK) $(CPPFLAGS) $(LIBS) -o $(TARGET) $(OBJECTS)
+	rm $(OBJECTS)
 
 .PHONY: clean
 
