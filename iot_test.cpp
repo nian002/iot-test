@@ -17,4 +17,5 @@ TEST(iot_test, input_positive)
 EXPECT_EQ(1, fac(1));
 EXPECT_EQ(2, fac(2));
 EXPECT_EQ(6, fac(3));
+EXPECT_EQ(3628800, fac(10));
 }
