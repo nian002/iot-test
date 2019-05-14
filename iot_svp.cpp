@@ -2,11 +2,38 @@
 #include "hi_type.h"
 #include "mpi_dsp.h"
 #include "hi_dsp.h"
+#include "hi_comm_video.h"
 #include "sample_comm_svp.h"
+#include "sample_dsp_enca.h"
+#include "opencv2/opencv.hpp"
 
-int iot_svp_init()
+
+
+int iot_svp_init(SAMPLE_SVP_DSP_DILATE_S *pstDilate,
+    HI_U32 u32Width,HI_U32 u32Height,SVP_DSP_ID_E enDspId,SVP_DSP_PRI_E enPri)
 {
-    return 0;
+    HI_S32 s32Ret;
+    HI_U32 u32Size = sizeof(SVP_IMAGE_S) * 2;
+    memset(pstDilate,0,sizeof(*pstDilate));
+
+    /*Do not malloc src address ,it get from vpss*/
+    pstDilate->stSrc.u32Width  = u32Width;
+    pstDilate->stSrc.u32Height = u32Height;
+    pstDilate->stSrc.enType    = SVP_IMAGE_TYPE_U8C1;
+
+    s32Ret = SAMPLE_COMM_SVP_CreateImage(&(pstDilate->stDst),SVP_IMAGE_TYPE_U8C1,u32Width,u32Height,0);
+    SAMPLE_SVP_CHECK_EXPR_RET(HI_SUCCESS != s32Ret, s32Ret, SAMPLE_SVP_ERR_LEVEL_ERROR, "Error(%#x):SAMPLE_COMM_SVP_CreateImage failed!\n", s32Ret);
+
+    s32Ret = SAMPLE_COMM_SVP_CreateMemInfo(&(pstDilate->stAssistBuf),u32Size,0);
+    SAMPLE_SVP_CHECK_EXPR_GOTO(HI_SUCCESS != s32Ret, FAIL_0, SAMPLE_SVP_ERR_LEVEL_ERROR, "Error(%#x):SAMPLE_COMM_SVP_CreateMemInfo failed!\n", s32Ret);
+
+    pstDilate->enDspId = enDspId;
+    pstDilate->enPri   = enPri;
+    return s32Ret;
+FAIL_0:
+    SAMPLE_COMM_SVP_DestroyImage(&(pstDilate->stDst),0);
+    memset(pstDilate,0,sizeof(*pstDilate));
+    return s32Ret;
 }
 
 int iot_svp_deinit()
@@ -29,7 +56,60 @@ END_DSP_0:
     return -1;
 }
 
-int iot_svp_unload_core_binary()
+void iot_svp_unload_core_binary()
 {
+    SVP_DSP_ID_E enDspId = SVP_DSP_ID_0;
+    SAMPLE_COMM_SVP_UnLoadCoreBinary(enDspId);
+}
+
+
+int iot_dsp_proc()
+{
+    // preapare opencv mat image
+    cv::Mat cv_image = cv::imread("pkx.jpg");
+    std::vector<cv::Mat> mv;
+    cv::split(cv_image,mv);
+
+    cv::imwrite("B.jpg", mv[0]);
+    cv::imwrite("G.jpg", mv[1]);
+    cv::imwrite("R.jpg", mv[2]);
+
     return 0;
+
+    SAMPLE_SVP_DSP_DILATE_S s_stDilate = {0};
+    SAMPLE_SVP_DSP_DILATE_S *pstDilate = &s_stDilate;
+    HI_S32 s32Ret;
+    SVP_DSP_ID_E enDspId = SVP_DSP_ID_0;
+    SVP_DSP_PRI_E enPri = SVP_DSP_PRI_0;
+    SIZE_S stSize;
+    stSize.u32Width = 1280;
+    stSize.u32Height = 853;
+
+    SVP_DSP_HANDLE hHandle;
+    HI_BOOL bFinish;
+    HI_BOOL bBlock = HI_TRUE;
+
+    /*Load bin*/
+    s32Ret = SAMPLE_COMM_SVP_LoadCoreBinary(enDspId);
+    SAMPLE_SVP_CHECK_EXPR_GOTO(HI_SUCCESS != s32Ret,END_DSP_2, SAMPLE_SVP_ERR_LEVEL_ERROR, "Error(%#x):SAMPLE_COMM_SVP_LoadCoreBinary failed!\n", s32Ret);
+    /*Init*/
+    s32Ret = iot_svp_init(&s_stDilate,stSize.u32Width,stSize.u32Height,enDspId,enPri);
+    SAMPLE_SVP_CHECK_EXPR_GOTO(HI_SUCCESS != s32Ret, END_DSP_2, SAMPLE_SVP_ERR_LEVEL_ERROR, "Error(%#x):SAMPLE_SVP_DSP_DilateInit failed!\n", s32Ret);
+
+    /*Ony get YVU400*/
+    // pstDilate->stSrc.au64PhyAddr[0] = pstExtFrmInfo->stVFrame.u64PhyAddr[0];
+    // pstDilate->stSrc.au64VirAddr[0] = pstExtFrmInfo->stVFrame.u64VirAddr[0];
+    // pstDilate->stSrc.au32Stride[0]  = pstExtFrmInfo->stVFrame.u32Stride[0];
+    /*Call enca mpi*/
+    s32Ret = SAMPLE_SVP_DSP_ENCA_Dilate3x3(&hHandle, pstDilate->enDspId,pstDilate->enPri, &pstDilate->stSrc, &pstDilate->stDst, &(pstDilate->stAssistBuf));
+    SAMPLE_SVP_CHECK_EXPR_RET(HI_SUCCESS != s32Ret, s32Ret, SAMPLE_SVP_ERR_LEVEL_ERROR, "Error(%#x):HI_MPI_SVP_DSP_ENCA_Dilate3x3 failed!\n", s32Ret);
+    /*Wait dsp finish*/
+    while(HI_ERR_SVP_DSP_QUERY_TIMEOUT == (s32Ret = HI_MPI_SVP_DSP_Query(pstDilate->enDspId, hHandle, &bFinish, bBlock)))
+    {
+        usleep(100);
+    }
+    //return s32Ret;
+END_DSP_2:
+    SAMPLE_COMM_SVP_UnLoadCoreBinary(enDspId);
+    return -1;
 }

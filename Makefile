@@ -118,7 +118,7 @@ OBJS := $(SRCS:%.cpp=%.o)
 all: unit_test
 
 unit_test: $(OBJS) $(SAMPLE_COMM_OBJS) $(SVP_SAMPLE_COMM_OBJS) 
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+	$(CXX) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 clean:
 	rm -f unit_test $(OBJS) $(SAMPLE_COMM_OBJS) $(SVP_SAMPLE_COMM_OBJS)
