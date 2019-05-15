@@ -43,6 +43,7 @@ int iot_svp_deinit()
 {
     SAMPLE_SVP_DSP_DILATE_S *pstDilate = &s_stDilate;
     SAMPLE_COMM_SVP_DestroyMemInfo(&(pstDilate->stAssistBuf),0);
+    SAMPLE_COMM_SVP_DestroyImage(&(pstDilate->stSrc),0);
     SAMPLE_COMM_SVP_DestroyImage(&(pstDilate->stDst),0);
     return 0;
 }
@@ -78,8 +79,9 @@ int iot_dsp_proc()
     std::vector<cv::Mat> mv;
     cv::split(cv_image,mv);
 
-    cv::Mat stSrcY = cv::Mat(1280, 853 ,CV_8UC1);
-    FILE *fp = fopen("Y.dat", "wb+");
+    cv::Mat dst = cv::Mat(cv_image.rows, cv_image.cols, CV_8UC1);
+    //cv::Mat stSrcY = cv::Mat(1280, 853 ,CV_8UC1);
+    //FILE *fp = fopen("dst.dat", "wb+");
     // cv::imwrite("B.jpg", mv[0]);
     // cv::imwrite("G.jpg", mv[1]);
     // cv::imwrite("R.jpg", mv[2]);
@@ -93,6 +95,7 @@ int iot_dsp_proc()
     uint8_t *pr_chn = mv[2].ptr();
 
     uint8_t *pSrc = (uint8_t *)pstDilate->stSrc.au64VirAddr[0];
+    uint8_t *pDst = (uint8_t *)pstDilate->stDst.au64VirAddr[0];
 
     // prepare dsp data and variable
     HI_S32 s32Ret;
@@ -113,23 +116,10 @@ int iot_dsp_proc()
     s32Ret = iot_svp_init(&s_stDilate,stSize.u32Width,stSize.u32Height,enDspId,enPri);
     SAMPLE_SVP_CHECK_EXPR_GOTO(HI_SUCCESS != s32Ret, END_DSP_2, SAMPLE_SVP_ERR_LEVEL_ERROR, "Error(%#x):SAMPLE_SVP_DSP_DilateInit failed!\n", s32Ret);
 
-    /*Ony get YVU400*/
-    // pstDilate->stSrc.au64PhyAddr[0] = pstExtFrmInfo->stVFrame.u64PhyAddr[0];
-    // pstDilate->stSrc.au64VirAddr[0] = pstExtFrmInfo->stVFrame.u64VirAddr[0];
-    // pstDilate->stSrc.au32Stride[0]  = pstExtFrmInfo->stVFrame.u32Stride[0];
-
-    pSrc = (uint8_t *)(pstDilate->stSrc.au64VirAddr[0]);
-    memcpy(pSrc, pb_chn, cv_image.cols * cv_image.rows);
-
-
-
-    fwrite((void*)(pstDilate->stSrc.au64VirAddr[0]), 1, 1280 * 853, fp);
-    fclose(fp);
-    
-
-
-    return 0;
-
+    //pSrc = (uint8_t *)(pstDilate->stSrc.au64VirAddr[0]);
+    //memcpy(pSrc, pb_chn, cv_image.cols * cv_image.rows);
+    //fwrite((void*)(pstDilate->stSrc.au64VirAddr[0]), 1, 1280 * 853, fp);
+    //fclose(fp);
 
     /*Call enca mpi*/
     s32Ret = SAMPLE_SVP_DSP_ENCA_Dilate3x3(&hHandle, pstDilate->enDspId,pstDilate->enPri, &pstDilate->stSrc, &pstDilate->stDst, &(pstDilate->stAssistBuf));
@@ -139,6 +129,16 @@ int iot_dsp_proc()
     {
         usleep(100);
     }
+
+    // save the dst image
+    pDst = (uint8_t *)(pstDilate->stDst.au64VirAddr[0]);
+    memcpy(dst.ptr(), pDst, stSize.u32Height * stSize.u32Width);
+    cv::imwrite("dst.jpg", dst);
+
+    SAMPLE_COMM_SVP_UnLoadCoreBinary(enDspId);
+    iot_svp_deinit();
+
+
     return s32Ret;
 END_DSP_2:
     SAMPLE_COMM_SVP_UnLoadCoreBinary(enDspId);
