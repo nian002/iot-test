@@ -21,10 +21,10 @@ int iot_svp_init(SAMPLE_SVP_DSP_DILATE_S *pstDilate,
     pstDilate->stSrc.u32Height = u32Height;
     pstDilate->stSrc.enType    = SVP_IMAGE_TYPE_U8C1;
 
-    s32Ret = SAMPLE_COMM_SVP_CreateImage(&(pstDilate->stSrc),SVP_IMAGE_TYPE_U8C1,u32Width,u32Height,0);
+    s32Ret = SAMPLE_COMM_SVP_CreateImage(&(pstDilate->stSrc),SVP_IMAGE_TYPE_U8C3_PLANAR,u32Width,u32Height,0);
     SAMPLE_SVP_CHECK_EXPR_RET(HI_SUCCESS != s32Ret, s32Ret, SAMPLE_SVP_ERR_LEVEL_ERROR, "Error(%#x):SAMPLE_COMM_SVP_CreateImage failed!\n", s32Ret);
 
-    s32Ret = SAMPLE_COMM_SVP_CreateImage(&(pstDilate->stDst),SVP_IMAGE_TYPE_U8C1,u32Width,u32Height,0);
+    s32Ret = SAMPLE_COMM_SVP_CreateImage(&(pstDilate->stDst),SVP_IMAGE_TYPE_U8C3_PLANAR,u32Width,u32Height,0);
     SAMPLE_SVP_CHECK_EXPR_RET(HI_SUCCESS != s32Ret, s32Ret, SAMPLE_SVP_ERR_LEVEL_ERROR, "Error(%#x):SAMPLE_COMM_SVP_CreateImage failed!\n", s32Ret);
 
     s32Ret = SAMPLE_COMM_SVP_CreateMemInfo(&(pstDilate->stAssistBuf),u32Size,0);
@@ -79,7 +79,9 @@ int iot_dsp_proc()
     std::vector<cv::Mat> mv;
     cv::split(cv_image,mv);
 
-    cv::Mat dst = cv::Mat(cv_image.rows, cv_image.cols, CV_8UC1);
+    cv::Mat cv_dstB = cv::Mat(cv_image.rows, cv_image.cols, CV_8UC1);
+    cv::Mat cv_dstG = cv::Mat(cv_image.rows, cv_image.cols, CV_8UC1);
+    cv::Mat cv_dstR = cv::Mat(cv_image.rows, cv_image.cols, CV_8UC1);
     //cv::Mat stSrcY = cv::Mat(1280, 853 ,CV_8UC1);
     //FILE *fp = fopen("dst.dat", "wb+");
     // cv::imwrite("B.jpg", mv[0]);
@@ -94,8 +96,13 @@ int iot_dsp_proc()
     uint8_t *pg_chn = mv[1].ptr();
     uint8_t *pr_chn = mv[2].ptr();
 
-    uint8_t *pSrc = (uint8_t *)pstDilate->stSrc.au64VirAddr[0];
-    uint8_t *pDst = (uint8_t *)pstDilate->stDst.au64VirAddr[0];
+    uint8_t *pSrcB = (uint8_t *)pstDilate->stSrc.au64VirAddr[0];
+    uint8_t *pSrcG = (uint8_t *)pstDilate->stSrc.au64VirAddr[1];
+    uint8_t *pSrcR = (uint8_t *)pstDilate->stSrc.au64VirAddr[2];
+
+    uint8_t *pDstB= (uint8_t *)pstDilate->stDst.au64VirAddr[0];
+    uint8_t *pDstG = (uint8_t *)pstDilate->stDst.au64VirAddr[0];
+    uint8_t *pDstR = (uint8_t *)pstDilate->stDst.au64VirAddr[0];
 
     // prepare dsp data and variable
     HI_S32 s32Ret;
@@ -116,8 +123,13 @@ int iot_dsp_proc()
     s32Ret = iot_svp_init(&s_stDilate,stSize.u32Width,stSize.u32Height,enDspId,enPri);
     SAMPLE_SVP_CHECK_EXPR_GOTO(HI_SUCCESS != s32Ret, END_DSP_2, SAMPLE_SVP_ERR_LEVEL_ERROR, "Error(%#x):SAMPLE_SVP_DSP_DilateInit failed!\n", s32Ret);
 
-    //pSrc = (uint8_t *)(pstDilate->stSrc.au64VirAddr[0]);
-    //memcpy(pSrc, pb_chn, cv_image.cols * cv_image.rows);
+    // copy opencv mat to pstDilate
+    pSrcB = (uint8_t *)(pstDilate->stSrc.au64VirAddr[0]);
+    pSrcG = (uint8_t *)(pstDilate->stSrc.au64VirAddr[1]);
+    pSrcR = (uint8_t *)(pstDilate->stSrc.au64VirAddr[2]);
+    memcpy(pSrcB, pb_chn, cv_image.cols * cv_image.rows);
+    memcpy(pSrcG, pg_chn, cv_image.cols * cv_image.rows);
+    memcpy(pSrcR, pr_chn, cv_image.cols * cv_image.rows);
     //fwrite((void*)(pstDilate->stSrc.au64VirAddr[0]), 1, 1280 * 853, fp);
     //fclose(fp);
 
@@ -131,9 +143,15 @@ int iot_dsp_proc()
     }
 
     // save the dst image
-    pDst = (uint8_t *)(pstDilate->stDst.au64VirAddr[0]);
-    memcpy(dst.ptr(), pDst, stSize.u32Height * stSize.u32Width);
-    cv::imwrite("dst.jpg", dst);
+    pDstB = (uint8_t *)(pstDilate->stDst.au64VirAddr[0]);
+    pDstG = (uint8_t *)(pstDilate->stDst.au64VirAddr[1]);
+    pDstR = (uint8_t *)(pstDilate->stDst.au64VirAddr[2]);
+    memcpy(cv_dstB.ptr(), pDstB, stSize.u32Height * stSize.u32Width);
+    memcpy(cv_dstG.ptr(), pDstG, stSize.u32Height * stSize.u32Width);
+    memcpy(cv_dstR.ptr(), pDstR, stSize.u32Height * stSize.u32Width);
+    cv::imwrite("dstB.jpg", cv_dstB);
+    cv::imwrite("dstG.jpg", cv_dstG);
+    cv::imwrite("dstR.jpg", cv_dstR);
 
     SAMPLE_COMM_SVP_UnLoadCoreBinary(enDspId);
     iot_svp_deinit();
