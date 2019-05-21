@@ -1,8 +1,12 @@
 #include "iot_svp.h"
 #include "hi_type.h"
 #include "mpi_dsp.h"
+#include "mpi_ive.h"
+#include "mpi_sys.h"
 #include "hi_dsp.h"
+#include "hi_ive.h"
 #include "hi_comm_video.h"
+#include "hi_comm_ive.h"
 #include "sample_comm_svp.h"
 #include "sample_dsp_enca.h"
 #include "opencv2/opencv.hpp"
@@ -167,5 +171,100 @@ int iot_dsp_proc()
     return s32Ret;
 END_DSP_2:
     SAMPLE_COMM_SVP_UnLoadCoreBinary(enDspId);
+    return -1;
+}
+
+
+int iot_ive_sobel_proc()
+{
+    SAMPLE_SVP_DSP_DILATE_S *pstDilate = &s_stDilate;
+
+    // preapare opencv mat image
+    cv::Mat cv_image = cv::imread("pkx.jpg");
+    std::vector<cv::Mat> mv;
+    cv::split(cv_image,mv);
+
+    cv::Mat cv_dstB = cv::Mat(cv_image.rows, cv_image.cols, CV_16SC1);
+    cv::Mat cv_dstG = cv::Mat(cv_image.rows, cv_image.cols, CV_16SC1);
+    cv::Mat cv_dstR = cv::Mat(cv_image.rows, cv_image.cols, CV_16SC1);
+
+    cv::Mat b_chn = mv[0];
+    cv::Mat g_chn = mv[1];
+    cv::Mat r_chn = mv[2];
+
+    uint8_t *pb_chn = mv[0].ptr();
+    uint8_t *pg_chn = mv[1].ptr();
+    uint8_t *pr_chn = mv[2].ptr();
+
+    uint8_t *pSrcB = 0;
+    uint8_t *pSrcG = 0;
+    uint8_t *pSrcR = 0;
+
+    int16_t *pDstB = 0;
+    int16_t *pDstG = 0;
+    int16_t *pDstR = 0;
+
+    // prepare dsp data and variable
+    HI_S32 s32Ret;
+    SVP_DSP_ID_E enDspId = SVP_DSP_ID_0;
+    SVP_DSP_PRI_E enPri = SVP_DSP_PRI_0;
+    SIZE_S stSize;
+    stSize.u32Width = 1280;
+    stSize.u32Height = 854;
+
+    SVP_DSP_HANDLE hHandle;
+    HI_BOOL bFinish;
+    HI_BOOL bBlock = HI_TRUE;
+
+    HI_S8 as8Kernel[25] = {0, 0, 0, 0, 0,
+                           0, -1, 0, 1, 0,
+                           0, -2, 0, 2, 0,
+                           0, -1, 0, 1, 0,
+                           0, 0, 0, 0, 0};
+    /*Init*/
+    s32Ret = iot_svp_init(&s_stDilate,stSize.u32Width,stSize.u32Height,enDspId,enPri);
+    SAMPLE_SVP_CHECK_EXPR_GOTO(HI_SUCCESS != s32Ret, END_DSP_2, SAMPLE_SVP_ERR_LEVEL_ERROR, "Error(%#x):SAMPLE_SVP_DSP_DilateInit failed!\n", s32Ret);
+
+    // copy opencv mat to pstDilate
+    pSrcB = (uint8_t *)(pstDilate->stSrc.au64VirAddr[0]);
+    memcpy(pSrcB, pb_chn, cv_image.cols * cv_image.rows);
+
+    IVE_IMAGE_S stIVESrc, stIVEDstH, stIVEDstV;
+
+    stIVESrc.au32Stride[0] = pstDilate->stSrc.au32Stride[0];
+    stIVESrc.au64PhyAddr[0] = pstDilate->stSrc.au64PhyAddr[0];
+    stIVESrc.au64VirAddr[0] = pstDilate->stSrc.au64VirAddr[0];
+    stIVESrc.enType = IVE_IMAGE_TYPE_U8C1;
+    stIVESrc.u32Height = pstDilate->stSrc.u32Height;
+    stIVESrc.u32Width = pstDilate->stSrc.u32Width;
+    
+    stIVEDstH.au32Stride[0] = pstDilate->stDst.au32Stride[0];
+    stIVEDstH.au64PhyAddr[0] = pstDilate->stDst.au64PhyAddr[0];
+    stIVEDstH.au64VirAddr[0] = pstDilate->stDst.au64VirAddr[0];
+    stIVEDstH.enType = IVE_IMAGE_TYPE_S16C1;
+    stIVEDstH.u32Height = pstDilate->stDst.u32Height;
+    stIVEDstH.u32Width = pstDilate->stDst.u32Width;
+
+    IVE_SOBEL_CTRL_S stSobelCtrl;
+    stSobelCtrl.enOutCtrl = IVE_SOBEL_OUT_CTRL_HOR;
+    memcpy(stSobelCtrl.as8Mask, as8Kernel, 25);
+
+    while(HI_ERR_SVP_DSP_QUERY_TIMEOUT == (s32Ret =  HI_MPI_IVE_Sobel(&hHandle, &stIVESrc, &stIVEDstH, &stIVEDstV, &stSobelCtrl, bBlock)))
+    {
+        usleep(100);
+    }
+
+    s32Ret = HI_MPI_SYS_MflushCache(stIVEDstH.au64PhyAddr[0], (int16_t*)(stIVEDstH.au64VirAddr[0]), stIVEDstH.u32Height * stIVEDstH.u32Height * 2);
+    SAMPLE_SVP_CHECK_EXPR_GOTO(HI_SUCCESS != s32Ret, END_DSP_2, SAMPLE_SVP_ERR_LEVEL_ERROR, "Error(%#x):HI_MPI_SYS_MflushCache failed!\n", s32Ret);
+    // save the dst image
+    pDstB = (int16_t *)(pstDilate->stDst.au64VirAddr[0]);
+    memcpy(cv_dstB.ptr(), pDstB, stSize.u32Height * stSize.u32Width * 2);
+    cv::imwrite("dstB.png", cv_dstB);
+
+    iot_svp_deinit();
+
+    return s32Ret;
+
+END_DSP_2:
     return -1;
 }

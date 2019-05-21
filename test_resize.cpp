@@ -3,6 +3,7 @@
 #include "opencv2/opencv.hpp"
 #include "iot_svp.h"
 
+/*
 TEST(resize_test, read_pkx_image)
 {
     cv::Mat image = cv::imread("pkx.jpg");
@@ -23,3 +24,5 @@ TEST(resize_test, resize_pkx_image)
     //iot_svp_init();
     //iot_svp_load_core_binary();
 }
+
+*/

@@ -21,4 +21,7 @@ int iot_svp_load_core_binary();
 void iot_svp_unload_core_binary();
 
 int iot_dsp_proc();
+
+int iot_ive_sobel_proc();
+
 #endif
