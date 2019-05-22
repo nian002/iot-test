@@ -213,7 +213,6 @@ int iot_ive_sobel_proc()
     stSize.u32Height = 854;
 
     SVP_DSP_HANDLE hHandle;
-    HI_BOOL bFinish;
     HI_BOOL bBlock = HI_TRUE;
 
     HI_S8 as8Kernel[25] = {0, 0, 0, 0, 0,
