@@ -5,5 +5,5 @@
 
 TEST(sobel_test, sobel_pkx_image)
 {
-    test_iot_ive_sobel_proc();
+    test_iot_ive_sobel_proc_enca();
 }
