@@ -24,6 +24,15 @@ int test_iot_ive_sobel_proc()
     cv::Mat cv_dstH = cv::Mat(cv_image.rows, cv_image.cols, CV_16SC1);
     cv::Mat cv_dstV = cv::Mat(cv_image.rows, cv_image.cols, CV_16SC1);
 
+    cv::Mat cv_dstX = cv::Mat(cv_image.rows, cv_image.cols, CV_16SC1);
+    cv::Mat cv_dstY = cv::Mat(cv_image.rows, cv_image.cols, CV_16SC1);
+
+    cv::Sobel(cv_image, cv_dstX, CV_16SC1, 2, 0);
+    cv::Sobel(cv_image, cv_dstY, CV_16SC1, 0, 2);
+
+    cv::imwrite("dstX.jpg", cv_dstX);
+    cv::imwrite("dstY.jpg", cv_dstY);
+
     // SRC IMAGE
     s32Ret = SAMPLE_COMM_SVP_CreateImage(&stSrc, SVP_IMAGE_TYPE_U8C1, 1280, 854, 0);
     SAMPLE_SVP_CHECK_EXPR_GOTO(HI_SUCCESS != s32Ret, END_1, SAMPLE_SVP_ERR_LEVEL_ERROR, "Error(%#x):SAMPLE_COMM_IVE_CreateImage failed!\n", s32Ret);
@@ -69,8 +78,8 @@ int test_iot_ive_sobel_proc()
     pDstV = (int16_t *)(stIVEDstV.au64VirAddr[0]);
     memcpy((int16_t *)(cv_dstV.ptr()), pDstV, 1280 * 853 * 2);
 
-    cv::imwrite("dstH.png", cv_dstH);
-    cv::imwrite("dstV.png", cv_dstV);
+    cv::imwrite("dstH.jpg", cv_dstH);
+    cv::imwrite("dstV.jpg", cv_dstV);
 
     return s32Ret;
 END_1:
@@ -85,17 +94,17 @@ int iot_ive_sobel_proc(IVE_IMAGE_S *pstSrc, IVE_IMAGE_S *pstDstH, IVE_IMAGE_S *p
     IVE_HANDLE hHandle;
     HI_BOOL bBlock = HI_TRUE;
 
-    HI_S8 as8Kernel[25] = {0, 0, 0, 0, 0,
-                           0, -1, 0, 1, 0,
-                           0, -2, 0, 2, 0,
-                           0, -1, 0, 1, 0,
+    HI_S8 as8KernelX[25] = {0, 0, 0, 0, 0,
+                           0, 1, -2, 1, 0,
+                           0, 2, -4, 2, 0,
+                           0, 1, -2, 1, 0,
                            0, 0, 0, 0, 0};
 
-    IVE_SOBEL_CTRL_S stSobelCtrl;
-    stSobelCtrl.enOutCtrl = IVE_SOBEL_OUT_CTRL_BOTH;
-    memcpy(stSobelCtrl.as8Mask, as8Kernel, 25);
+    IVE_SOBEL_CTRL_S stSobelCtrlX;
+    stSobelCtrlX.enOutCtrl = IVE_SOBEL_OUT_CTRL_BOTH;
+    memcpy(stSobelCtrlX.as8Mask, as8KernelX, 25);
 
-    while(HI_ERR_SVP_DSP_QUERY_TIMEOUT == (s32Ret =  HI_MPI_IVE_Sobel(&hHandle, pstSrc, pstDstH, pstDstV, &stSobelCtrl, bBlock)))
+    while(HI_ERR_SVP_DSP_QUERY_TIMEOUT == (s32Ret =  HI_MPI_IVE_Sobel(&hHandle, pstSrc, pstDstH, pstDstV, &stSobelCtrlX, bBlock)))
     {
         usleep(100);
     }
