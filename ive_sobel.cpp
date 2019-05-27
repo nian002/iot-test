@@ -56,10 +56,10 @@ int ive_sobel_proc(unsigned char *pstSrc,unsigned char *pstDstH, unsigned char *
         usleep(100);
     }
 
-    s32Ret = HI_MPI_SYS_MflushCache(stDstH.au64PhyAddr[0], (int16_t*)(stDstH.au64VirAddr[0]), stDstH.u32Height * stDstH.u32Height * 2);
+    s32Ret = HI_MPI_SYS_MflushCache(stDstH.au64PhyAddr[0], (int16_t*)(stDstH.au64VirAddr[0]), stDstH.u32Width * stDstH.u32Height * 2);
     SAMPLE_SVP_CHECK_EXPR_GOTO(HI_SUCCESS != s32Ret, END_1, SAMPLE_SVP_ERR_LEVEL_ERROR, "Error(%#x):HI_MPI_SYS_MflushCache failed!\n", s32Ret);
     
-    s32Ret = HI_MPI_SYS_MflushCache(stDstV.au64PhyAddr[0], (int16_t*)(stDstV.au64VirAddr[0]), stDstV.u32Height * stDstV.u32Height * 2);
+    s32Ret = HI_MPI_SYS_MflushCache(stDstV.au64PhyAddr[0], (int16_t*)(stDstV.au64VirAddr[0]), stDstV.u32Width * stDstV.u32Height * 2);
     SAMPLE_SVP_CHECK_EXPR_GOTO(HI_SUCCESS != s32Ret, END_1, SAMPLE_SVP_ERR_LEVEL_ERROR, "Error(%#x):HI_MPI_SYS_MflushCache failed!\n", s32Ret);
 
     return s32Ret;
@@ -184,7 +184,7 @@ int test_iot_ive_sobel_proc_enca()
     SVP_IMAGE_S stSrc, stDstH, stDstV;
     HI_S32 s32Ret;
 
-    cv::Mat cv_image = cv::imread("pkx.jpg");
+    cv::Mat cv_image = cv::imread("face.jpg");
     cv::cvtColor(cv_image, cv_image, CV_BGR2GRAY);
 
     int16_t *pDstH = 0;
@@ -206,30 +206,32 @@ int test_iot_ive_sobel_proc_enca()
     unsigned char * pstDstH;
     unsigned char * pstDstV;
     // SRC IMAGE
-    s32Ret = SAMPLE_COMM_SVP_CreateImage(&stSrc, SVP_IMAGE_TYPE_U8C1, 1280, 854, 0);
+    s32Ret = SAMPLE_COMM_SVP_CreateImage(&stSrc, SVP_IMAGE_TYPE_U8C1, 112, 112, 0);
     SAMPLE_SVP_CHECK_EXPR_GOTO(HI_SUCCESS != s32Ret, END, SAMPLE_SVP_ERR_LEVEL_ERROR, "Error(%#x):SAMPLE_COMM_IVE_CreateImage failed!\n", s32Ret);
     memcpy((uint8_t *)(stSrc.au64VirAddr[0]) , cv_image.ptr(), cv_image.cols * cv_image.rows);
+
+    s32Ret = HI_MPI_SYS_MflushCache(stSrc.au64PhyAddr[0], (int16_t*)(stSrc.au64VirAddr[0]), stSrc.u32Height * stSrc.u32Height * 2);
    
     // DST IMAGE
-    s32Ret = SAMPLE_COMM_SVP_CreateImage(&stDstH, SVP_IMAGE_TYPE_S16C1, 1280, 854, 0);
+    s32Ret = SAMPLE_COMM_SVP_CreateImage(&stDstH, SVP_IMAGE_TYPE_S16C1, 112, 112, 0);
     SAMPLE_SVP_CHECK_EXPR_GOTO(HI_SUCCESS != s32Ret, END, SAMPLE_SVP_ERR_LEVEL_ERROR, "Error(%#x):SAMPLE_COMM_IVE_CreateImage failed!\n", s32Ret);
 
-    s32Ret = SAMPLE_COMM_SVP_CreateImage(&stDstV, SVP_IMAGE_TYPE_S16C1, 1280, 854, 0);
+    s32Ret = SAMPLE_COMM_SVP_CreateImage(&stDstV, SVP_IMAGE_TYPE_S16C1, 112, 112, 0);
     SAMPLE_SVP_CHECK_EXPR_GOTO(HI_SUCCESS != s32Ret, END, SAMPLE_SVP_ERR_LEVEL_ERROR, "Error(%#x):SAMPLE_COMM_IVE_CreateImage failed!\n", s32Ret);
 
     pstSrc = reinterpret_cast<uint8_t*>(stSrc.au64VirAddr[0]);
     pstDstH = reinterpret_cast<uint8_t*>(stDstH.au64VirAddr[0]);
     pstDstV = reinterpret_cast<uint8_t*>(stDstV.au64VirAddr[0]);
 
-    s32Ret = ive_sobel_proc(pstSrc, pstDstH, pstDstV, stSrc.au64PhyAddr[0], stDstH.au64PhyAddr[0], stDstV.au64PhyAddr[0], 1280, 854);
+    s32Ret = ive_sobel_proc(pstSrc, pstDstH, pstDstV, stSrc.au64PhyAddr[0], stDstH.au64PhyAddr[0], stDstV.au64PhyAddr[0], 112, 112);
     SAMPLE_SVP_CHECK_EXPR_GOTO(HI_SUCCESS != s32Ret, END, SAMPLE_SVP_ERR_LEVEL_ERROR, "Error(%#x):iot_ive_sobel_proc failed!\n", s32Ret);
 
     // save the dst image
     pDstH = (int16_t *)(stDstH.au64VirAddr[0]);
-    memcpy((int16_t *)(cv_dstH.ptr()), pDstH, 1280 * 853 * 2);
+    memcpy((int16_t *)(cv_dstH.ptr()), pDstH, 112 * 112 * 2);
 
     pDstV = (int16_t *)(stDstV.au64VirAddr[0]);
-    memcpy((int16_t *)(cv_dstV.ptr()), pDstV, 1280 * 853 * 2);
+    memcpy((int16_t *)(cv_dstV.ptr()), pDstV, 112 * 112 * 2);
 
     cv::imwrite("dstH.jpg", cv_dstH);
     cv::imwrite("dstV.jpg", cv_dstV);
