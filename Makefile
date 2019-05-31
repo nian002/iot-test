@@ -37,6 +37,8 @@ CC := aarch64-himix100-linux-gcc
 CXX := aarch64-himix100-linux-g++
 
 CFLAGS += -g
+CFLAGS += -I ./
+CFLAGS += -I ./svp
 CFLAGS += -I $(MPP_INC_DIR)
 CFLAGS += -I $(MPP_SAMPLE_COMM_DIR)
 CFLAGS += -I $(MPP_SAMPLE_SVP_DIR)
@@ -113,6 +115,8 @@ SVP_SAMPLE_COMM_SRCS := $(wildcard $(MPP_SAMPLE_SVP_DIR)/*.c)
 SVP_SAMPLE_COMM_OBJS := $(SVP_SAMPLE_COMM_SRCS:%.c=%.o)
 
 SRCS := $(wildcard *.cpp)
+SRCS += $(wildcard test/*.cpp)
+SRCS += $(wildcard svp/*.cpp)
 OBJS := $(SRCS:%.cpp=%.o)
 
 all: unit_test
