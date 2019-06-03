@@ -1,6 +1,12 @@
 #ifndef __SAMPLE_COMM_IVE_H__
 #define __SAMPLE_COMM_IVE_H__
 
+#ifdef __cplusplus
+#if __cplusplus
+extern "C"{
+#endif
+#endif /* __cplusplus */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -185,6 +191,12 @@ HI_S32 SAMPLE_COMM_IVE_StartViVpssVencVo(SAMPLE_VI_CONFIG_S *pstViConfig,SAMPLE_
 * function : Stop Vi/Vpss/Venc/Vo
 ******************************************************************************/
 HI_VOID SAMPLE_COMM_IVE_StopViVpssVencVo(SAMPLE_VI_CONFIG_S *pstViConfig,SAMPLE_IVE_SWITCH_S *pstSwitch);
+
+#ifdef __cplusplus
+#if __cplusplus
+}
+#endif
+#endif /* __cplusplus */
 
 #endif
 
