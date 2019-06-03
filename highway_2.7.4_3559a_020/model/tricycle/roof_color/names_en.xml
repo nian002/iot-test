@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<root xml_tb_version="3.2.1" idx="1" type="typeClassify" size="1 6">
+  <item idx="0" type="char" size="1 9">黑色#1</item>
+  <item idx="1" type="char" size="1 9">蓝色#2</item>
+  <item idx="2" type="char" size="1 9">棕色#3</item>
+  <item idx="3" type="char" size="1 9">绿色#4</item>
+  <item idx="4" type="char" size="1 9">银色#5</item>
+  <item idx="5" type="char" size="1 9">白色#6</item>
+  <item idx="6" type="char" size="1 9">红色#7</item>
+  <item idx="7" type="char" size="1 9">黄色#8</item>
+  <item idx="8" type="char" size="1 9">粉色#9</item>
+  <item idx="9" type="char" size="1 9">紫色#10</item>
+  <item idx="10" type="char" size="1 9">青色#11</item>
+  <item idx="11" type="char" size="1 9">深灰色#12</item>
+  <item idx="12" type="char" size="1 9">金色#13</item>
+  <item idx="13" type="char" size="1 9">墨绿色#14</item>
+  <item idx="14" type="char" size="1 9">浅蓝色#15</item>
+  <item idx="15" type="char" size="1 9">橘红色#16</item>
+  <item idx="16" type="char" size="1 9">橘黄色#17</item>
+</root>

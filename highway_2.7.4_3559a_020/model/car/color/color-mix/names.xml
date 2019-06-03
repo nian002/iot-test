@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<!-- Written on 06-Feb-2015 11:20:38 using the XML Toolbox for Matlab -->
+<root xml_tb_version="3.2.1" idx="1" type="cell" size="1 7">
+  <item idx="0" type="char" size="1 5">黑色#1</item>
+  <item idx="1" type="char" size="1 4">蓝色#2</item>
+  <item idx="2" type="char" size="1 5">棕色#3</item>
+  <item idx="3" type="char" size="1 5">绿色#4</item>
+  <item idx="4" type="char" size="1 9">灰色#5</item>
+  <item idx="5" type="char" size="1 5">白色#6</item>
+  <item idx="6" type="char" size="1 3">红色#7</item>
+  <item idx="7" type="char" size="1 6">黄色#8</item>
+  <item idx="8" type="char" size="1 4">粉色#9</item>
+  <item idx="9" type="char" size="1 6">紫色#10</item>
+  <item idx="10" type="char" size="1 4">青色#11</item>
+  <item idx="11" type="char" size="1 4">深灰色#12</item>
+  <item idx="12" type="char" size="1 6">金色#13</item>
+</root>

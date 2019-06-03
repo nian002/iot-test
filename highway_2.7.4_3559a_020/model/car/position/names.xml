@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root size="1 5" type="cell">
+  <item idx="0" size="1 48" type="char">front#0</item>
+  <item idx="1" size="1 48" type="char">back#1</item>
+  <item idx="2" size="1 48" type="char">side#3</item>
+  <item idx="3" size="1 48" type="char">side-front-left#4</item>
+  <item idx="4" size="1 48" type="char">side-front-right#5</item>
+  <item idx="5" size="1 48" type="char">side-back-left#6</item>
+  <item idx="6" size="1 48" type="char">side-back-right#7</item>
+</root>

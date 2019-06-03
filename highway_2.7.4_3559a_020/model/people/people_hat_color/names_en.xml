@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<root xml_tb_version="3.2.1" idx="1" type="typeClassify" size="1 6">
+  <item idx="0" type="char" size="1 9">灰#1</item>
+  <item idx="1" type="char" size="1 9">白#2</item>
+  <item idx="2" type="char" size="1 9">红#3</item>
+  <item idx="3" type="char" size="1 9">绿#4</item>
+  <item idx="4" type="char" size="1 9">蓝#5</item>
+  <item idx="5" type="char" size="1 9">黄#6</item>
+  <item idx="6" type="char" size="1 9">黑#7</item>
+  <item idx="7" type="char" size="1 9">紫#8</item>
+  <item idx="8" type="char" size="1 9">深灰#9</item>
+</root>

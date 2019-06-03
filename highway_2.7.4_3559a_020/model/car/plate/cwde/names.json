@@ -1,0 +1,1046 @@
+[
+  [
+    {
+      "code": 5, 
+      "name": "绿"
+    }, 
+    {
+      "code": 3, 
+      "name": "黑"
+    }, 
+    {
+      "code": 4, 
+      "name": "白"
+    }, 
+    {
+      "code": 1, 
+      "name": "黄"
+    }, 
+    {
+      "code": 2, 
+      "name": "蓝"
+    }, 
+    {
+      "code": 7, 
+      "name": "渐变绿"
+    }, 
+    {
+      "code": 6, 
+      "name": "黄绿"
+    }
+  ], 
+  [
+    {
+      "code": 1, 
+      "name": "鲁"
+    }, 
+    {
+      "code": 2, 
+      "name": "冀"
+    }, 
+    {
+      "code": 3, 
+      "name": "鄂"
+    }, 
+    {
+      "code": 4, 
+      "name": "南"
+    }, 
+    {
+      "code": 5, 
+      "name": "领"
+    }, 
+    {
+      "code": 6, 
+      "name": "吉"
+    }, 
+    {
+      "code": 7, 
+      "name": "沈"
+    }, 
+    {
+      "code": 8, 
+      "name": "济"
+    }, 
+    {
+      "code": 9, 
+      "name": "云"
+    }, 
+    {
+      "code": 10, 
+      "name": "浙"
+    }, 
+    {
+      "code": 11, 
+      "name": "桂"
+    }, 
+    {
+      "code": 12, 
+      "name": "北"
+    }, 
+    {
+      "code": 13, 
+      "name": "皖"
+    }, 
+    {
+      "code": 14, 
+      "name": "蒙"
+    }, 
+    {
+      "code": 15, 
+      "name": "湘"
+    }, 
+    {
+      "code": 16, 
+      "name": "军"
+    }, 
+    {
+      "code": 17, 
+      "name": "渝"
+    }, 
+    {
+      "code": 18, 
+      "name": "甘"
+    }, 
+    {
+      "code": 19, 
+      "name": "津"
+    }, 
+    {
+      "code": 20, 
+      "name": "粤"
+    }, 
+    {
+      "code": 21, 
+      "name": "新"
+    }, 
+    {
+      "code": 22, 
+      "name": "沪"
+    }, 
+    {
+      "code": 23, 
+      "name": "-"
+    }, 
+    {
+      "code": 24, 
+      "name": "京"
+    }, 
+    {
+      "code": 25, 
+      "name": "港"
+    }, 
+    {
+      "code": 26, 
+      "name": "1"
+    }, 
+    {
+      "code": 27, 
+      "name": "0"
+    }, 
+    {
+      "code": 28, 
+      "name": "3"
+    }, 
+    {
+      "code": 29, 
+      "name": "2"
+    }, 
+    {
+      "code": 30, 
+      "name": "5"
+    }, 
+    {
+      "code": 31, 
+      "name": "4"
+    }, 
+    {
+      "code": 32, 
+      "name": "7"
+    }, 
+    {
+      "code": 33, 
+      "name": "6"
+    }, 
+    {
+      "code": 34, 
+      "name": "9"
+    }, 
+    {
+      "code": 35, 
+      "name": "8"
+    }, 
+    {
+      "code": 36, 
+      "name": "辽"
+    }, 
+    {
+      "code": 37, 
+      "name": "晋"
+    }, 
+    {
+      "code": 38, 
+      "name": "A"
+    }, 
+    {
+      "code": 39, 
+      "name": "C"
+    }, 
+    {
+      "code": 40, 
+      "name": "B"
+    }, 
+    {
+      "code": 41, 
+      "name": "E"
+    }, 
+    {
+      "code": 42, 
+      "name": "D"
+    }, 
+    {
+      "code": 43, 
+      "name": "G"
+    }, 
+    {
+      "code": 44, 
+      "name": "F"
+    }, 
+    {
+      "code": 45, 
+      "name": "H"
+    }, 
+    {
+      "code": 46, 
+      "name": "K"
+    }, 
+    {
+      "code": 47, 
+      "name": "J"
+    }, 
+    {
+      "code": 48, 
+      "name": "M"
+    }, 
+    {
+      "code": 49, 
+      "name": "L"
+    }, 
+    {
+      "code": 50, 
+      "name": "苏"
+    }, 
+    {
+      "code": 51, 
+      "name": "N"
+    }, 
+    {
+      "code": 52, 
+      "name": "黑"
+    }, 
+    {
+      "code": 53, 
+      "name": "P"
+    }, 
+    {
+      "code": 54, 
+      "name": "S"
+    }, 
+    {
+      "code": 55, 
+      "name": "R"
+    }, 
+    {
+      "code": 56, 
+      "name": "U"
+    }, 
+    {
+      "code": 57, 
+      "name": "T"
+    }, 
+    {
+      "code": 58, 
+      "name": "W"
+    }, 
+    {
+      "code": 59, 
+      "name": "V"
+    }, 
+    {
+      "code": 60, 
+      "name": "Y"
+    }, 
+    {
+      "code": 61, 
+      "name": "X"
+    }, 
+    {
+      "code": 62, 
+      "name": "成"
+    }, 
+    {
+      "code": 63, 
+      "name": "Z"
+    }, 
+    {
+      "code": 64, 
+      "name": "川"
+    }, 
+    {
+      "code": 65, 
+      "name": "藏"
+    }, 
+    {
+      "code": 66, 
+      "name": "武"
+    }, 
+    {
+      "code": 67, 
+      "name": "Q"
+    }, 
+    {
+      "code": 68, 
+      "name": "赣"
+    }, 
+    {
+      "code": 69, 
+      "name": "空"
+    }, 
+    {
+      "code": 70, 
+      "name": "宁"
+    }, 
+    {
+      "code": 71, 
+      "name": "学"
+    }, 
+    {
+      "code": 72, 
+      "name": "豫"
+    }, 
+    {
+      "code": 73, 
+      "name": "警"
+    }, 
+    {
+      "code": 74, 
+      "name": "琼"
+    }, 
+    {
+      "code": 75, 
+      "name": "兰"
+    }, 
+    {
+      "code": 76, 
+      "name": "青"
+    }, 
+    {
+      "code": 77, 
+      "name": "海"
+    }, 
+    {
+      "code": 78, 
+      "name": "贵"
+    }, 
+    {
+      "code": 79, 
+      "name": "陕"
+    }, 
+    {
+      "code": 80, 
+      "name": "澳"
+    }, 
+    {
+      "code": 81, 
+      "name": "闽"
+    }, 
+    {
+      "code": 82, 
+      "name": "广"
+    }, 
+    {
+      "code": 83, 
+      "name": "朝"
+    }, 
+    {
+      "code": 84, 
+      "name": "挂"
+    }
+  ], 
+  [
+    {
+      "code": 1, 
+      "name": "鲁"
+    }, 
+    {
+      "code": 2, 
+      "name": "冀"
+    }, 
+    {
+      "code": 3, 
+      "name": "鄂"
+    }, 
+    {
+      "code": 4, 
+      "name": "南"
+    }, 
+    {
+      "code": 5, 
+      "name": "领"
+    }, 
+    {
+      "code": 6, 
+      "name": "吉"
+    }, 
+    {
+      "code": 7, 
+      "name": "沈"
+    }, 
+    {
+      "code": 8, 
+      "name": "济"
+    }, 
+    {
+      "code": 9, 
+      "name": "云"
+    }, 
+    {
+      "code": 10, 
+      "name": "浙"
+    }, 
+    {
+      "code": 11, 
+      "name": "桂"
+    }, 
+    {
+      "code": 12, 
+      "name": "北"
+    }, 
+    {
+      "code": 13, 
+      "name": "皖"
+    }, 
+    {
+      "code": 14, 
+      "name": "蒙"
+    }, 
+    {
+      "code": 15, 
+      "name": "湘"
+    }, 
+    {
+      "code": 16, 
+      "name": "军"
+    }, 
+    {
+      "code": 17, 
+      "name": "渝"
+    }, 
+    {
+      "code": 18, 
+      "name": "甘"
+    }, 
+    {
+      "code": 19, 
+      "name": "津"
+    }, 
+    {
+      "code": 20, 
+      "name": "粤"
+    }, 
+    {
+      "code": 21, 
+      "name": "新"
+    }, 
+    {
+      "code": 22, 
+      "name": "沪"
+    }, 
+    {
+      "code": 23, 
+      "name": "-"
+    }, 
+    {
+      "code": 24, 
+      "name": "京"
+    }, 
+    {
+      "code": 25, 
+      "name": "港"
+    }, 
+    {
+      "code": 26, 
+      "name": "1"
+    }, 
+    {
+      "code": 27, 
+      "name": "0"
+    }, 
+    {
+      "code": 28, 
+      "name": "3"
+    }, 
+    {
+      "code": 29, 
+      "name": "2"
+    }, 
+    {
+      "code": 30, 
+      "name": "5"
+    }, 
+    {
+      "code": 31, 
+      "name": "4"
+    }, 
+    {
+      "code": 32, 
+      "name": "7"
+    }, 
+    {
+      "code": 33, 
+      "name": "6"
+    }, 
+    {
+      "code": 34, 
+      "name": "9"
+    }, 
+    {
+      "code": 35, 
+      "name": "8"
+    }, 
+    {
+      "code": 36, 
+      "name": "辽"
+    }, 
+    {
+      "code": 37, 
+      "name": "晋"
+    }, 
+    {
+      "code": 38, 
+      "name": "A"
+    }, 
+    {
+      "code": 39, 
+      "name": "C"
+    }, 
+    {
+      "code": 40, 
+      "name": "B"
+    }, 
+    {
+      "code": 41, 
+      "name": "E"
+    }, 
+    {
+      "code": 42, 
+      "name": "D"
+    }, 
+    {
+      "code": 43, 
+      "name": "G"
+    }, 
+    {
+      "code": 44, 
+      "name": "F"
+    }, 
+    {
+      "code": 45, 
+      "name": "H"
+    }, 
+    {
+      "code": 46, 
+      "name": "K"
+    }, 
+    {
+      "code": 47, 
+      "name": "J"
+    }, 
+    {
+      "code": 48, 
+      "name": "M"
+    }, 
+    {
+      "code": 49, 
+      "name": "L"
+    }, 
+    {
+      "code": 50, 
+      "name": "苏"
+    }, 
+    {
+      "code": 51, 
+      "name": "N"
+    }, 
+    {
+      "code": 52, 
+      "name": "黑"
+    }, 
+    {
+      "code": 53, 
+      "name": "P"
+    }, 
+    {
+      "code": 54, 
+      "name": "S"
+    }, 
+    {
+      "code": 55, 
+      "name": "R"
+    }, 
+    {
+      "code": 56, 
+      "name": "U"
+    }, 
+    {
+      "code": 57, 
+      "name": "T"
+    }, 
+    {
+      "code": 58, 
+      "name": "W"
+    }, 
+    {
+      "code": 59, 
+      "name": "V"
+    }, 
+    {
+      "code": 60, 
+      "name": "Y"
+    }, 
+    {
+      "code": 61, 
+      "name": "X"
+    }, 
+    {
+      "code": 62, 
+      "name": "成"
+    }, 
+    {
+      "code": 63, 
+      "name": "Z"
+    }, 
+    {
+      "code": 64, 
+      "name": "川"
+    }, 
+    {
+      "code": 65, 
+      "name": "藏"
+    }, 
+    {
+      "code": 66, 
+      "name": "武"
+    }, 
+    {
+      "code": 67, 
+      "name": "Q"
+    }, 
+    {
+      "code": 68, 
+      "name": "赣"
+    }, 
+    {
+      "code": 69, 
+      "name": "空"
+    }, 
+    {
+      "code": 70, 
+      "name": "宁"
+    }, 
+    {
+      "code": 71, 
+      "name": "学"
+    }, 
+    {
+      "code": 72, 
+      "name": "豫"
+    }, 
+    {
+      "code": 73, 
+      "name": "警"
+    }, 
+    {
+      "code": 74, 
+      "name": "琼"
+    }, 
+    {
+      "code": 75, 
+      "name": "兰"
+    }, 
+    {
+      "code": 76, 
+      "name": "青"
+    }, 
+    {
+      "code": 77, 
+      "name": "海"
+    }, 
+    {
+      "code": 78, 
+      "name": "贵"
+    }, 
+    {
+      "code": 79, 
+      "name": "陕"
+    }, 
+    {
+      "code": 80, 
+      "name": "澳"
+    }, 
+    {
+      "code": 81, 
+      "name": "闽"
+    }, 
+    {
+      "code": 82, 
+      "name": "广"
+    }, 
+    {
+      "code": 83, 
+      "name": "朝"
+    }, 
+    {
+      "code": 84, 
+      "name": "挂"
+    }
+  ], 
+  [
+    {
+      "code": 1, 
+      "name": "鲁"
+    }, 
+    {
+      "code": 2, 
+      "name": "冀"
+    }, 
+    {
+      "code": 3, 
+      "name": "鄂"
+    }, 
+    {
+      "code": 4, 
+      "name": "南"
+    }, 
+    {
+      "code": 5, 
+      "name": "领"
+    }, 
+    {
+      "code": 6, 
+      "name": "吉"
+    }, 
+    {
+      "code": 7, 
+      "name": "沈"
+    }, 
+    {
+      "code": 8, 
+      "name": "济"
+    }, 
+    {
+      "code": 9, 
+      "name": "云"
+    }, 
+    {
+      "code": 10, 
+      "name": "浙"
+    }, 
+    {
+      "code": 11, 
+      "name": "桂"
+    }, 
+    {
+      "code": 12, 
+      "name": "北"
+    }, 
+    {
+      "code": 13, 
+      "name": "皖"
+    }, 
+    {
+      "code": 14, 
+      "name": "蒙"
+    }, 
+    {
+      "code": 15, 
+      "name": "湘"
+    }, 
+    {
+      "code": 16, 
+      "name": "军"
+    }, 
+    {
+      "code": 17, 
+      "name": "渝"
+    }, 
+    {
+      "code": 18, 
+      "name": "甘"
+    }, 
+    {
+      "code": 19, 
+      "name": "津"
+    }, 
+    {
+      "code": 20, 
+      "name": "粤"
+    }, 
+    {
+      "code": 21, 
+      "name": "新"
+    }, 
+    {
+      "code": 22, 
+      "name": "沪"
+    }, 
+    {
+      "code": 23, 
+      "name": "-"
+    }, 
+    {
+      "code": 24, 
+      "name": "京"
+    }, 
+    {
+      "code": 25, 
+      "name": "港"
+    }, 
+    {
+      "code": 26, 
+      "name": "1"
+    }, 
+    {
+      "code": 27, 
+      "name": "0"
+    }, 
+    {
+      "code": 28, 
+      "name": "3"
+    }, 
+    {
+      "code": 29, 
+      "name": "2"
+    }, 
+    {
+      "code": 30, 
+      "name": "5"
+    }, 
+    {
+      "code": 31, 
+      "name": "4"
+    }, 
+    {
+      "code": 32, 
+      "name": "7"
+    }, 
+    {
+      "code": 33, 
+      "name": "6"
+    }, 
+    {
+      "code": 34, 
+      "name": "9"
+    }, 
+    {
+      "code": 35, 
+      "name": "8"
+    }, 
+    {
+      "code": 36, 
+      "name": "辽"
+    }, 
+    {
+      "code": 37, 
+      "name": "晋"
+    }, 
+    {
+      "code": 38, 
+      "name": "A"
+    }, 
+    {
+      "code": 39, 
+      "name": "C"
+    }, 
+    {
+      "code": 40, 
+      "name": "B"
+    }, 
+    {
+      "code": 41, 
+      "name": "E"
+    }, 
+    {
+      "code": 42, 
+      "name": "D"
+    }, 
+    {
+      "code": 43, 
+      "name": "G"
+    }, 
+    {
+      "code": 44, 
+      "name": "F"
+    }, 
+    {
+      "code": 45, 
+      "name": "H"
+    }, 
+    {
+      "code": 46, 
+      "name": "K"
+    }, 
+    {
+      "code": 47, 
+      "name": "J"
+    }, 
+    {
+      "code": 48, 
+      "name": "M"
+    }, 
+    {
+      "code": 49, 
+      "name": "L"
+    }, 
+    {
+      "code": 50, 
+      "name": "苏"
+    }, 
+    {
+      "code": 51, 
+      "name": "N"
+    }, 
+    {
+      "code": 52, 
+      "name": "黑"
+    }, 
+    {
+      "code": 53, 
+      "name": "P"
+    }, 
+    {
+      "code": 54, 
+      "name": "S"
+    }, 
+    {
+      "code": 55, 
+      "name": "R"
+    }, 
+    {
+      "code": 56, 
+      "name": "U"
+    }, 
+    {
+      "code": 57, 
+      "name": "T"
+    }, 
+    {
+      "code": 58, 
+      "name": "W"
+    }, 
+    {
+      "code": 59, 
+      "name": "V"
+    }, 
+    {
+      "code": 60, 
+      "name": "Y"
+    }, 
+    {
+      "code": 61, 
+      "name": "X"
+    }, 
+    {
+      "code": 62, 
+      "name": "成"
+    }, 
+    {
+      "code": 63, 
+      "name": "Z"
+    }, 
+    {
+      "code": 64, 
+      "name": "川"
+    }, 
+    {
+      "code": 65, 
+      "name": "藏"
+    }, 
+    {
+      "code": 66, 
+      "name": "武"
+    }, 
+    {
+      "code": 67, 
+      "name": "Q"
+    }, 
+    {
+      "code": 68, 
+      "name": "赣"
+    }, 
+    {
+      "code": 69, 
+      "name": "空"
+    }, 
+    {
+      "code": 70, 
+      "name": "宁"
+    }, 
+    {
+      "code": 71, 
+      "name": "学"
+    }, 
+    {
+      "code": 72, 
+      "name": "豫"
+    }, 
+    {
+      "code": 73, 
+      "name": "警"
+    }, 
+    {
+      "code": 74, 
+      "name": "琼"
+    }, 
+    {
+      "code": 75, 
+      "name": "兰"
+    }, 
+    {
+      "code": 76, 
+      "name": "青"
+    }, 
+    {
+      "code": 77, 
+      "name": "海"
+    }, 
+    {
+      "code": 78, 
+      "name": "贵"
+    }, 
+    {
+      "code": 79, 
+      "name": "陕"
+    }, 
+    {
+      "code": 80, 
+      "name": "澳"
+    }, 
+    {
+      "code": 81, 
+      "name": "闽"
+    }, 
+    {
+      "code": 82, 
+      "name": "广"
+    }, 
+    {
+      "code": 83, 
+      "name": "朝"
+    }, 
+    {
+      "code": 84, 
+      "name": "挂"
+    }
+  ]
+]

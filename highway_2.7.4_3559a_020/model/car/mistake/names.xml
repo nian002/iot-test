@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<!-- Written on 12-Aug-2015 13:04:15 using the XML Toolbox for Matlab -->
+<root xml_tb_version="3.2.1" idx="1" type="typeClassify" size="1 2">
+  <item idx="0" type="char" size="1 9">front#0</item>
+  <item idx="1" type="char" size="1 9">back#1</item>
+  <item idx="2" type="char" size="1 9">side#3</item>
+  <item idx="3" type="char" size="1 9">mistake#2</item>
+</root>

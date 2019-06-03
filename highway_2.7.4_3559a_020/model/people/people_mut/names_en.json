@@ -1,0 +1,91 @@
+[
+    [
+        {"name": "male", "code": 1},
+        {"name": "female", "code": 2}
+    ],
+    [
+        {"name": "child", "code": 1},
+        {"name": "youth", "code": 2},
+        {"name": "middle age", "code": 3},
+        {"name": "old age", "code": 4},
+        {"name": "teenager", "code": 5}
+    ],
+    [
+        {"name": "gray", "code": 1},
+        {"name": "white", "code": 2},
+        {"name": "red", "code": 3},
+        {"name": "green", "code": 4},
+        {"name": "blue", "code": 5},
+        {"name": "yellow", "code": 6},
+        {"name": "black", "code": 7},
+        {"name": "purple", "code": 8},
+        {"name": "dark gray", "code": 9}
+    ],
+    [
+        {"name": "gray", "code": 1},
+        {"name": "white", "code": 2},
+        {"name": "red", "code": 3},
+        {"name": "green", "code": 4},
+        {"name": "blue", "code": 5},
+        {"name": "yellow", "code": 6},
+        {"name": "black", "code": 7},
+        {"name": "purple", "code": 8},
+        {"name": "dark gray", "code": 9}
+    ],
+    [
+        {"name": "front", "code": 1},
+        {"name": "back", "code": 2},
+        {"name": "left", "code": 4},
+        {"name": "right", "code": 5}
+    ],
+    [
+        {"name": "long hair", "code": 1},
+        {"name": "short hair", "code": 2},
+        {"name": "ponytail", "code": 3},
+        {"name": "covered", "code": 4},
+        {"name": "updo", "code": 5}
+    ],
+    [
+        {"name": "no umbrella", "code": 1},
+        {"name": "holding an umbrella", "code": 2}
+    ],
+    [
+        {"name": "no hat or helmet", "code": 1},
+        {"name": "wearing a hat", "code": 2},
+        {"name": "wearing a helmet", "code": 3},
+        {"name": "wearing a caps", "code": 4},
+        {"name": "wearing a headscarf", "code": 5}
+    ],
+    [
+        {"name": "long sleeve", "code": 1},
+        {"name": "short sleeve", "code": 2}
+    ],
+    [
+        {"name": "full length pants", "code": 1},
+        {"name": "shorts", "code": 2},
+        {"name": "capri pants", "code": 3},
+        {"name": "skirt", "code": 4}
+    ],
+    [
+        {"name": "no knapsack", "code": 1},
+        {"name": "knapsack", "code": 2},
+        {"name": "uncertain", "code": 3}
+    ],
+    [
+        {"name": "carry something in hand", "code": 2},
+        {"name": "carry nothing in hand", "code": 1}
+    ],
+    [
+        {"name": "cradling a baby", "code": 1},
+        {"name": "no baby", "code": 2},
+        {"name": "carry a baby on the back", "code": 3}
+    ],
+    [
+        {"name": "non-messenger bag", "code": 1},
+        {"name": "messenger bag", "code": 2}
+    ],
+    [
+        {"name": "non-shoulder bag", "code": 1},
+        {"name": "shoulder bag", "code": 2}
+    ]
+]

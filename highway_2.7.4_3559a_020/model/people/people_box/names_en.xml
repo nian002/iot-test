@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<root xml_tb_version="3.2.1" idx="1" type="typeClassify" size="1 6">
+  <item idx="0" type="char" size="1 9">无推车#1</item>
+  <item idx="1" type="char" size="1 9">拉杆箱#2</item>
+  <item idx="2" type="char" size="1 9">手推车#3</item>
+  <item idx="3" type="char" size="1 9">婴儿车#4</item>
+  <item idx="4" type="char" size="1 9">垃圾车#5</item>
+  <item idx="5" type="char" size="1 9">平板车#6</item>
+  <item idx="6" type="char" size="1 9">轮椅#7</item>
+  <item idx="7" type="char" size="1 9">架子车#8</item>
+</root>

@@ -1,0 +1,91 @@
+[
+    [
+        {"name": "男", "code": 1},
+        {"name": "女", "code": 2}
+    ],
+    [
+        {"name": "儿童", "code": 1},
+        {"name": "青年", "code": 2},
+        {"name": "中年", "code": 3},
+        {"name": "老年", "code": 4},
+        {"name": "少年", "code": 5}
+    ],
+    [
+        {"name": "灰", "code": 1},
+        {"name": "白", "code": 2},
+        {"name": "红", "code": 3},
+        {"name": "绿", "code": 4},
+        {"name": "蓝", "code": 5},
+        {"name": "黄", "code": 6},
+        {"name": "黑", "code": 7},
+        {"name": "紫", "code": 8},
+        {"name": "深灰", "code": 9}
+    ],
+    [
+        {"name": "灰", "code": 1},
+        {"name": "白", "code": 2},
+        {"name": "红", "code": 3},
+        {"name": "绿", "code": 4},
+        {"name": "蓝", "code": 5},
+        {"name": "黄", "code": 6},
+        {"name": "黑", "code": 7},
+        {"name": "紫", "code": 8},
+        {"name": "深灰", "code": 9}
+    ],
+    [
+        {"name": "前", "code": 1},
+        {"name": "后", "code": 2},
+        {"name": "左", "code": 4},
+        {"name": "右", "code": 5}
+    ],
+    [
+        {"name": "长发", "code": 1},
+        {"name": "短发", "code": 2},
+        {"name": "马尾", "code": 3},
+        {"name": "头部被遮挡", "code": 4},
+        {"name": "盘发", "code": 5}
+    ],
+    [
+        {"name": "未打伞", "code": 1},
+        {"name": "打伞", "code": 2}
+    ],
+    [
+        {"name": "未戴帽子", "code": 1},
+        {"name": "戴帽子", "code": 2},
+        {"name": "戴头盔", "code": 3},
+        {"name": "连衣帽", "code": 4},
+        {"name": "头巾", "code": 5}
+    ],
+    [
+        {"name": "长袖", "code": 1},
+        {"name": "短袖", "code": 2}
+    ],
+    [
+        {"name": "长裤", "code": 1},
+        {"name": "短裤", "code": 2},
+        {"name": "七分裤", "code": 3},
+        {"name": "裙子", "code": 4}
+    ],
+    [
+        {"name": "未背双肩包", "code": 1},
+        {"name": "双肩包（有包）", "code": 2},
+        {"name": "未确定", "code": 3}
+    ],
+    [
+        {"name": "拎东西", "code": 2},
+        {"name": "未拎东西", "code": 1}
+    ],
+    [
+        {"name": "抱小孩", "code": 1},
+        {"name": "未抱小孩", "code": 2},
+        {"name": "背小孩", "code": 3}
+    ],
+    [
+        {"name": "非斜挎包", "code": 1},
+        {"name": "斜挎包", "code": 2}
+    ],
+    [
+        {"name": "非单肩包", "code": 1},
+        {"name": "单肩包", "code": 2}
+    ]
+]
