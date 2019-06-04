@@ -1,7 +1,12 @@
 #include "gtest/gtest.h"
 #include "highway_util.h"
 
-TEST(highway_sdk, test_yuv)
+TEST(highway_sdk, test_get_version)
 {
-    test_highway_sdk();
+    highway_sdk_get_version();
+}
+
+TEST(highway_sdk, test_process_init)
+{
+    highway_sdk_process_init();
 }

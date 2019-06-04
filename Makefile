@@ -1,7 +1,7 @@
 .PHONY : clean all
 
 #SDK_INC := ../include
-#SDK_LIB := ../3559a/lib
+HIGHWAY_SDK_PATH:= ./highway_2.7.4_3559a_020
 
 MPP_DIR := mpp
 MPP_INC_DIR := $(MPP_DIR)/out/linux/multi-core/include
@@ -40,6 +40,7 @@ CFLAGS += -g
 CFLAGS += -I ./
 CFLAGS += -I ./svp
 CFLAGS += -I ./highway-test
+CFLAGS += -I $(HIGHWAY_SDK_PATH)/include
 CFLAGS += -I $(MPP_INC_DIR)
 CFLAGS += -I $(MPP_SAMPLE_COMM_DIR)
 CFLAGS += -I $(MPP_SAMPLE_SVP_DIR)
@@ -63,6 +64,7 @@ CFLAGS += -DSENSOR7_TYPE=$(SENSOR7_TYPE)
 CXXFLAGS := $(CFLAGS)
 
 #LDFLAGS += -L $(BASE64_LIB_DIR)
+LDFLAGS += -L ./highway_2.7.4_3559a_020/3559a/lib
 LDFLAGS += -L $(MPP_LIB_DIR)
 LDFLAGS += -L $(OPENCV_INC_DIR)../lib
 #LDFLAGS += -L $(SDK_LIB)
@@ -70,9 +72,10 @@ LDFLAGS += -L $(OPENCV_INC_DIR)../lib
 #LDFLAGS += -L $(GFLAGS_LIB_DIR)
 LDFLAGS += -L $(GTEST_LIB_DIR)
 LDFLAGS += -L $(OPENCV_LIB_DIR)
-#LDFLAGS += -Wl,-rpath=$(SDK_LIB)
+LDFLAGS += -Wl,-rpath=$(HIGHWAY_SDK_PATH)/3559a/lib
+LDFLAGS += -Wl,-rpath=$(MPP_LIB_DIR)
 
-#LIBS += -lexport_sdk
+LIBS += -lexport_sdk
 LIBS += -lopencv_highgui
 LIBS += -lopencv_core
 LIBS += -lopencv_imgproc
@@ -99,9 +102,10 @@ LIBS += -l_hiawb
 LIBS += -l_hidehaze
 LIBS += -l_hidrc
 LIBS += -l_hildci
-#LIBS += -lglog
+LIBS += -lglog
 #LIBS += -lgflags
 #LIBS += -lb64
+LIBS += -lsecurec
 LIBS += -lpthread
 LIBS += -lm
 LIBS += -ldl

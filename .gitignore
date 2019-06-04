@@ -34,5 +34,6 @@
 # data file
 
 *.yuv
+*.rgb
 
 .vscode/
