@@ -22,9 +22,11 @@ int highway_sdk_thread_uninit();
 int highway_sdk_match_init();
 int highway_sdk_match_uninit();
 
+// highway 图像检测、图像识别
 int highway_sdk_image_detection();
 int highway_sdk_image_recognization();
 
+// highway 视频检测、视频识别
 int highway_sdk_video_detection();
 int highway_sdk_video_recognization();
 

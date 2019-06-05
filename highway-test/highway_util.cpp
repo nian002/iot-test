@@ -5,7 +5,7 @@
 #include <string.h>
 
 #include "sdk_export.h"
-
+#include <opencv2/opencv.hpp>
 
 #define detect_param "{\"Detect\":{\"DetectRegion\":[],\"IsDet\":true}}"
 #define recogn_param "{\"Detect\":{\"DetectRegion\":[],\"IsDet\":true,\"MaxCarWidth\":0,\"MinCarWidth\":0,\"Mode\":0,\"Threshold\":20,\"Version\":1001},\"Recognize\":{\"Person\":{\"IsRec\":true},\"Feature\":{\"IsRec\":true},\"Vehicle\":{\"Brand\":{\"IsRec\":true},\"Plate\":{\"IsRec\":true},\"Color\":{\"IsRec\":true},\"Marker\":{\"IsRec\":true}}}}"
@@ -15,7 +15,6 @@ int video_total_frame = 3000;
 int video_frame_height = 1080;
 int video_frame_width = 1920;
 
-
 int test_highway_sdk()
 {
     // Read YUV video file frame by frame.
@@ -24,7 +23,7 @@ int test_highway_sdk()
     if (video_fp == NULL) {printf("Open Video File Error!\n");}
 
     uint8_t rgb24_video_buffer[video_frame_width * video_frame_height * 3];
-    int read_len = fread(rgb24_video_buffer, video_frame_width * video_frame_height * 3, 1, video_fp);
+    int read_len = fread(rgb24_video_buffer, sizeof(uint8_t), video_frame_width * video_frame_height * 3, video_fp);
     if(read_len == -1)
     {
         printf("Video File read error!\n");
@@ -50,9 +49,6 @@ int test_highway_sdk()
 
     // int ive_csc_ret = HI_MPI_IVE_CSC(&ive_handle, &ive_src, &ive_dst, &ive_csc_ctrl, HI_FALSE);
     // if (ive_csc_ret != HI_SUCCESS) {printf("HI_MPI_IVE_CSC failed!\n");}
-
-    
-
 }
 
 int highway_sdk_get_version()
@@ -70,13 +66,13 @@ int highway_sdk_process_init()
 int highway_sdk_uninit()
 {
     int ret = seemmo_uninit();
-    printf("seemmo_init ret: %d \n", ret);
+    printf("seemmo_uninit ret: %d \n", ret);
 }
 
 int highway_sdk_thread_init()
 {
-
-
+    int ret = seemmo_thread_init(SEEMMO_LOAD_TYPE_FILTER, 0, 1);
+    printf("seemmo_thread_init FILTER ret: %d \n", ret);
 }
 
 int highway_sdk_thread_uninit()
@@ -101,12 +97,115 @@ int highway_sdk_image_detection()
 
 int highway_sdk_image_recognization()
 {
+    /*
+    // Read YUV video file frame by frame.
+    FILE *video_fp;
+    video_fp = fopen(video_file_path, "r");
+    if (video_fp == NULL) {printf("Open Video File Error!\n");}
 
+    uint8_t *rgb24_video_buffer = (uint8_t *)malloc(1920 * 1080 * 3);
+    uint8_t **prgb24 = &rgb24_video_buffer;
+    int read_len = fread(rgb24_video_buffer, video_frame_width * video_frame_height * 3, 1, video_fp);
+    if(read_len == -1)
+    {
+        printf("Video File read error!\n");
+    }
+    else if(read_len == 0)
+    {
+        printf("Video File read Over!\n");
+    }
+    else 
+    {
+        printf("Read %d Byte From rgb24.rgb.\n",read_len);
+    }
+
+    const uint32_t width = video_frame_width;
+    const uint32_t height = video_frame_height;
+    const char *cal_param = recogn_param;
+    char rsp_buffer[5 * 1024 * 1024];
+    int32_t buff_len = 5 * 1024 *1024;
+    int32_t timeout = 2000;
+
+    int ret = seemmo_image_pvc_recog(1, 
+                                    const_cast<const uint8_t**>(prgb24), 
+                                    const_cast<const uint32_t*>(&width), 
+                                    const_cast<const uint32_t*>(&height), 
+                                    cal_param, rsp_buffer, &buff_len, timeout);
+    printf("image_pvc_recog ret %d \n", ret);
+
+    printf("rsp_buffer result : %s \n", rsp_buffer);
+
+    */
 }
 
 int highway_sdk_video_detection()
 {
+    // Read YUV video file frame by frame.
+    FILE *video_fp;
+    video_fp = fopen(video_file_path, "rb+");
+    if (video_fp == NULL) {printf("Open Video File Error!\n");}
 
+    uint8_t *rgb24_video_buffer = (uint8_t *)malloc(1920 * 1080 * 3);
+    uint8_t **prgb24 = &rgb24_video_buffer;
+    int read_len = fread(rgb24_video_buffer, video_frame_width * video_frame_height * 3, 1, video_fp);
+    if(read_len == -1)
+    {
+        printf("Video File read error!\n");
+    }
+    else if(read_len == 0)
+    {
+        printf("Video File read Over!\n");
+    }
+    else 
+    {
+        printf("Read ret : %d From rgb24.rgb.\n",read_len);
+    }
+
+    // FILE *ret_fp;
+    // ret_fp = fopen("hi.dat", "wb+");
+    // fwrite(rgb24_video_buffer, 1920 * 1080 * 3, 1, ret_fp);
+
+    // fclose(video_fp);
+    // fclose(ret_fp);
+
+    cv::Mat image_src = cv::Mat(1080, 1920, CV_8UC3);
+    std::vector<cv::Mat> image_chns;
+
+    memcpy(image_src.ptr(), rgb24_video_buffer, 1920 * 1080 * 3);
+
+    cv::cvtColor(image_src, image_src, CV_RGB2BGR);
+
+    cv::split(image_src, image_chns);
+
+    uint8_t *rgb24_planar = (uint8_t *)malloc(1920 * 1080 * 3);
+    memcpy(rgb24_planar, image_chns[0].ptr(), 1920 * 1080);
+    memcpy(rgb24_planar + 1920 * 1080, image_chns[1].ptr(), 1920 * 1080);
+    memcpy(rgb24_planar + 1920 * 1080 * 2, image_chns[2].ptr(), 1920 * 1080);
+
+    // cv::imwrite("bgr.jpg", image_src);
+
+    // return 0;
+
+    uint8_t **prgb24_planar = &rgb24_planar;
+
+    const int32_t video_chn = 1;
+    const uint64_t timestamp = 0;
+    const uint32_t width = video_frame_width;
+    const uint32_t height = video_frame_height;
+    const char *cal_param = recogn_param;
+    const char **pcal_param = &cal_param;
+    char rsp_buffer[5 * 1024 * 1024];
+    int32_t buff_len = 5 * 1024 *1024;
+    int32_t timeout = 2000;
+
+    int ret = seemmo_video_pvc(1, &video_chn, &timestamp, 
+                                    const_cast<const uint8_t**>(prgb24_planar), 
+                                    const_cast<const uint32_t*>(&width), 
+                                    const_cast<const uint32_t*>(&height), 
+                                    pcal_param, rsp_buffer, &buff_len, timeout);
+    printf("seemmo_video_pvc ret %d \n", ret);
+
+    printf("rsp_buffer result : %s \n", rsp_buffer);
 }
 
 int highway_sdk_video_recognization()

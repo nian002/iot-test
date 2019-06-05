@@ -129,7 +129,7 @@ all: unit_test
 
 unit_test: $(OBJS) $(SAMPLE_COMM_OBJS) $(SVP_SAMPLE_COMM_OBJS) 
 	$(CXX) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
-	rm $(OBJS) $(SAMPLE_COMM_OBJS) $(SVP_SAMPLE_COMM_OBJS) 
+#	rm $(OBJS) $(SAMPLE_COMM_OBJS) $(SVP_SAMPLE_COMM_OBJS) 
 
 clean:
 	rm -f unit_test $(OBJS) $(SAMPLE_COMM_OBJS) $(SVP_SAMPLE_COMM_OBJS)
