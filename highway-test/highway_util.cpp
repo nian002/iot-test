@@ -146,50 +146,11 @@ int highway_sdk_video_detection()
     if (video_fp == NULL) {printf("Open Video File Error!\n");}
 
     uint8_t *rgb24_video_buffer = (uint8_t *)malloc(1920 * 1080 * 3);
-    uint8_t **prgb24 = &rgb24_video_buffer;
-    int read_len = fread(rgb24_video_buffer, video_frame_width * video_frame_height * 3, 1, video_fp);
-    if(read_len == -1)
-    {
-        printf("Video File read error!\n");
-    }
-    else if(read_len == 0)
-    {
-        printf("Video File read Over!\n");
-    }
-    else 
-    {
-        printf("Read ret : %d From rgb24.rgb.\n",read_len);
-    }
-
-    // FILE *ret_fp;
-    // ret_fp = fopen("hi.dat", "wb+");
-    // fwrite(rgb24_video_buffer, 1920 * 1080 * 3, 1, ret_fp);
-
-    // fclose(video_fp);
-    // fclose(ret_fp);
-
-    cv::Mat image_src = cv::Mat(1080, 1920, CV_8UC3);
-    std::vector<cv::Mat> image_chns;
-
-    memcpy(image_src.ptr(), rgb24_video_buffer, 1920 * 1080 * 3);
-
-    cv::cvtColor(image_src, image_src, CV_RGB2BGR);
-
-    cv::split(image_src, image_chns);
-
     uint8_t *rgb24_planar = (uint8_t *)malloc(1920 * 1080 * 3);
-    memcpy(rgb24_planar, image_chns[0].ptr(), 1920 * 1080);
-    memcpy(rgb24_planar + 1920 * 1080, image_chns[1].ptr(), 1920 * 1080);
-    memcpy(rgb24_planar + 1920 * 1080 * 2, image_chns[2].ptr(), 1920 * 1080);
-
-    // cv::imwrite("bgr.jpg", image_src);
-
-    // return 0;
-
+    uint8_t **prgb24 = &rgb24_video_buffer;
     uint8_t **prgb24_planar = &rgb24_planar;
 
     const int32_t video_chn = 1;
-    const uint64_t timestamp = 0;
     const uint32_t width = video_frame_width;
     const uint32_t height = video_frame_height;
     const char *cal_param = recogn_param;
@@ -198,14 +159,46 @@ int highway_sdk_video_detection()
     int32_t buff_len = 5 * 1024 *1024;
     int32_t timeout = 2000;
 
-    int ret = seemmo_video_pvc(1, &video_chn, &timestamp, 
-                                    const_cast<const uint8_t**>(prgb24_planar), 
-                                    const_cast<const uint32_t*>(&width), 
-                                    const_cast<const uint32_t*>(&height), 
-                                    pcal_param, rsp_buffer, &buff_len, timeout);
-    printf("seemmo_video_pvc ret %d \n", ret);
+    for(int i = 0; i < 3000; i++)
+    {
+        const uint64_t timestamp = i;
+        memset(rgb24_video_buffer, 0, 1920 * 1080 * 3);
+        int read_len = fread(rgb24_video_buffer, video_frame_width * video_frame_height * 3, 1, video_fp);
+        if(read_len == -1)
+        {
+            printf("Video File read error!\n");
+        }
+        else if(read_len == 0)
+        {
+            printf("Video File read Over!\n");
+        }
+        else 
+        {
+            printf("Read ret : %d From rgb24.rgb. Frame Index : %d\n",read_len, i);
+        }
 
-    printf("rsp_buffer result : %s \n", rsp_buffer);
+        cv::Mat image_src = cv::Mat(1080, 1920, CV_8UC3);
+        std::vector<cv::Mat> image_chns;
+
+        memcpy(image_src.ptr(), rgb24_video_buffer, 1920 * 1080 * 3);
+
+        cv::cvtColor(image_src, image_src, CV_RGB2BGR);
+        cv::split(image_src, image_chns);
+
+        memcpy(rgb24_planar,                   image_chns[0].ptr(), 1920 * 1080);
+        memcpy(rgb24_planar + 1920 * 1080,     image_chns[1].ptr(), 1920 * 1080);
+        memcpy(rgb24_planar + 1920 * 1080 * 2, image_chns[2].ptr(), 1920 * 1080);
+
+        int ret = seemmo_video_pvc(1, &video_chn, &timestamp, 
+                                        const_cast<const uint8_t**>(prgb24_planar), 
+                                        const_cast<const uint32_t*>(&width), 
+                                        const_cast<const uint32_t*>(&height), 
+                                        pcal_param, rsp_buffer, &buff_len, timeout);
+        printf("seemmo_video_pvc ret %d \n", ret);
+
+        printf("rsp_buffer result : %s \n", rsp_buffer);
+
+    }
 }
 
 int highway_sdk_video_recognization()
